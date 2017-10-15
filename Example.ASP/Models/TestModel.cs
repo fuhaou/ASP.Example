@@ -2,14 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Example.ASP.Libraries.DbTable;
-using System.Data.Entity;
 using Example.ASP.Libraries;
+using System.Web;
+using System.Data.Entity;
+using Example.ASP.Models;
 
 namespace Example.ASP.Models
 {
-    public class TestModel : Libraries.Singleton<TestModel>
+    public class TestModel : Singleton<TestModel>
     {
         private TestDao _dao;
 
@@ -17,15 +17,56 @@ namespace Example.ASP.Models
         {
             this._dao = new TestDao();
         }
-
-        public Object getAll()
+        
+        public List<Dto.Test> getAll()
         {
-            List<string> aa = new List<string>();
-            foreach(var a in _dao.Test)
+            var result = this._dao.getAll().ToList<Dto.Test>() ?? null;
+            return result;
+        }
+
+        public List<Dto.Test> searchQuery(string Name)
+        {
+            Name = Name.Trim();
+            var result = this._dao.searchQuery(Name).ToList<Dto.Test>() ?? null;
+            return result;
+        }
+
+        public string insert(string Name)
+        {
+            string message = null;
+            try
             {
-                aa.Add(a.TestName);
+                var dataInsert = new Dto.Test()
+                {
+                    TestName = Name,
+                    TestDate = DateTime.Now,
+                    TestChild = null
+                };
+                this._dao.Test.Add(dataInsert);
+                this._dao.SaveChanges();
+            } catch (Exception ex)
+            {
+                message = ex.Message;
             }
-            return aa;
+            return message;
+        }
+
+        public string update(int Id, string Name, DateTime Date, Dto.TestChild Child)
+        {
+            string message = null;
+            try
+            {
+                var dataUpdate = this._dao.Test.Find(Id);
+                dataUpdate.TestName = Name;
+                dataUpdate.TestDate = Date;
+                dataUpdate.TestChild = Child;
+                this._dao.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return message;
         }
     }
 }

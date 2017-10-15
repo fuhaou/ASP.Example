@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace Example.ASP.Libraries.DbTable
+namespace Example.ASP.Models.Dto
 {
     [Table("Test")]
     public class Test
