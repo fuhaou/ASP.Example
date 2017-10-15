@@ -10,6 +10,7 @@ namespace Example.ASP.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Data = Models.TestModel.Instance.getAll();
             return View();
         }
 

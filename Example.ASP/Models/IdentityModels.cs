@@ -21,7 +21,7 @@ namespace Example.ASP.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DatabaseConnection", throwIfV1Schema: false)
         {
         }
 
