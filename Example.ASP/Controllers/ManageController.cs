@@ -11,6 +11,7 @@ using Example.ASP.Models;
 namespace Example.ASP.Controllers
 {
     [Authorize]
+	//sdfhosiefkasefilhaep sdzdsdffa
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
